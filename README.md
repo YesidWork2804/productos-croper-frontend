@@ -1,27 +1,274 @@
-# ProductosCroperFrontend
+# 🛒 Catálogo de Productos - Frontend
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.3.17.
+Aplicación web moderna desarrollada con Angular 17 para gestionar un catálogo de productos con autenticación JWT y diseño responsivo.
 
-## Development server
+## 🚀 Características Principales
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+- **🔐 Autenticación completa** - Login, registro y gestión de sesiones
+- **📦 CRUD de productos** - Crear, leer, actualizar y eliminar productos
+- **🔍 Búsqueda y filtros** - Filtrado por categoría y búsqueda de texto
+- **📱 Diseño responsivo** - Optimizado para desktop, tablet y móvil
+- **🏪 Gestión de estado** - NgRx para manejo centralizado del estado
+- **🎨 UI moderna** - Angular Material Design
+- **⚡ Rendimiento** - Lazy loading y optimizaciones
 
-## Code scaffolding
+## 🛠️ Stack Tecnológico
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+- **Framework:** Angular 17 (Standalone Components)
+- **Estado:** NgRx (Store, Effects, Selectors)
+- **UI:** Angular Material + CDK
+- **Estilos:** SCSS + CSS Grid/Flexbox
+- **HTTP:** Angular HttpClient con interceptors
+- **Routing:** Angular Router con guards
+- **Validación:** Reactive Forms + Custom Validators
 
-## Build
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+## 🔧 Instalación y Configuración
 
-## Running unit tests
+### Prerrequisitos
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+- Node.js 18+
+- npm 9+
+- Angular CLI 17+
 
-## Running end-to-end tests
+### 1. Clonar el repositorio
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+```bash
+git clone <url-del-repositorio>
+cd productos-frontend
+```
 
-## Further help
+### 2. Instalar dependencias
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+```bash
+npm install
+```
+
+### 3. Configurar variables de entorno
+
+```bash
+# src/environments/environment.ts
+export const environment = {
+  production: false,
+  apiUrl: 'http://localhost:3000'  # URL de tu API backend
+};
+```
+
+### 4. Ejecutar la aplicación
+
+```bash
+# Desarrollo con hot-reload
+npm start
+# o
+ng serve
+
+# La aplicación estará disponible en http://localhost:4200
+```
+
+## 🔗 Conexión con el Backend
+
+### Configuración de la API
+
+1. **Asegúrate de que el backend esté ejecutándose** en `http://localhost:3000`
+
+2. **Verifica la configuración** en `src/environments/environment.ts`:
+   ```typescript
+   export const environment = {
+     production: false,
+     apiUrl: 'http://localhost:3000'  // URL del backend
+   };
+   ```
+
+3. **El frontend se conecta automáticamente** a estos endpoints:
+   ```
+   POST /auth/login          # Iniciar sesión
+   POST /auth/register       # Registrar usuario
+   GET  /products           # Listar productos (con filtros)
+   POST /products           # Crear producto
+   GET  /products/:id       # Obtener producto
+   PATCH /products/:id      # Actualizar producto
+   DELETE /products/:id     # Eliminar producto
+   GET  /products/categories # Obtener categorías
+   ```
+
+### Configuración de CORS (si es necesario)
+
+Si tienes problemas de CORS, agrega esto en tu backend:
+
+```typescript
+// En main.ts del backend NestJS
+app.enableCors({
+  origin: 'http://localhost:4200',
+  credentials: true
+});
+```
+
+### Autenticación JWT
+
+El frontend maneja automáticamente:
+- ✅ Almacenamiento del token JWT en localStorage
+- ✅ Envío automático del token en headers de peticiones
+- ✅ Redirección al login si el token expira
+- ✅ Gestión del estado de autenticación
+
+## 🎮 Uso de la Aplicación
+
+### 1. Autenticación
+
+**Credenciales de prueba:**
+- **Email:** `admin@test.com`
+- **Password:** `password123`
+
+**O crear cuenta nueva:**
+1. Ve a la página de registro
+2. Completa el formulario
+3. Serás redirigido automáticamente
+
+### 2. Gestión de Productos
+
+**Listar productos:**
+- Vista principal con grid responsivo
+- Filtros por categoría y búsqueda
+- Paginación configurable
+
+**Crear producto:**
+1. Click en "Nuevo Producto"
+2. Completa el formulario con validaciones
+3. Vista previa en tiempo real
+
+**Editar producto:**
+1. Click en "Editar" en cualquier producto
+2. Formulario pre-poblado
+3. Guarda los cambios
+
+**Eliminar producto:**
+1. Click en "Eliminar"
+2. Confirma en el diálogo
+3. Eliminación inmediata
+
+## 🔨 Scripts Disponibles
+
+```bash
+# Desarrollo
+npm start              # Servidor de desarrollo
+npm run build          # Build de producción
+npm run build:dev      # Build de desarrollo
+npm run test           # Tests unitarios
+npm run lint           # Linting del código
+npm run e2e            # Tests end-to-end
+
+# Utilidades
+npm run analyze        # Análisis del bundle
+npm run serve:prod     # Servir build de producción
+```
+
+## 📱 Características Responsivas
+
+### Desktop (1200px+)
+- Sidebar fijo visible
+- Grid de 3-4 productos por fila
+- Navegación completa en header
+
+### Tablet (768px - 1199px)
+- Sidebar colapsable
+- Grid de 2-3 productos por fila
+- Navegación optimizada
+
+### Mobile (< 768px)
+- Sidebar tipo drawer
+- Grid de 1 producto por fila
+- Navegación touch-friendly
+
+## 🔐 Seguridad Implementada
+
+- **JWT Token Management** - Almacenamiento seguro y renovación
+- **Route Guards** - Protección de rutas autenticadas
+- **HTTP Interceptors** - Manejo automático de autenticación
+- **Form Validation** - Validaciones client-side robustas
+- **XSS Protection** - Sanitización de datos de entrada
+
+## 🚀 Despliegue
+
+### Build de Producción
+
+```bash
+# Crear build optimizado
+npm run build
+
+# Los archivos estarán en dist/productos-frontend/
+```
+
+### Variables de Entorno de Producción
+
+```typescript
+// src/environments/environment.prod.ts
+export const environment = {
+  production: true,
+  apiUrl: 'https://tu-api-produccion.com'
+};
+```
+
+### Ejemplo con Nginx
+
+```nginx
+server {
+    listen 80;
+    server_name tu-dominio.com;
+    root /var/www/productos-frontend;
+    index index.html;
+
+    location / {
+        try_files $uri $uri/ /index.html;
+    }
+
+    location /api {
+        proxy_pass http://tu-backend:3000;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+    }
+}
+```
+
+## 🐛 Troubleshooting
+
+### Problemas Comunes
+
+**1. Error de conexión con el backend:**
+```bash
+# Verificar que el backend esté ejecutándose
+curl http://localhost:3000/api/docs
+
+# Verificar configuración en environment.ts
+```
+
+**2. Problemas de CORS:**
+```bash
+# Verificar configuración de CORS en el backend
+# O usar proxy de Angular para desarrollo
+```
+
+**3. Token JWT expirado:**
+```bash
+# El frontend redirige automáticamente al login
+# Verificar tiempo de expiración en el backend
+```
+
+**4. Problemas de build:**
+```bash
+# Limpiar cache
+rm -rf node_modules package-lock.json
+npm install
+
+# Verificar versión de Node.js
+node --version  # Debe ser 18+
+```
+
+## 📈 Próximas Mejoras
+
+- [ ] **PWA Support** - Funcionalidad offline
+- [ ] **Internacionalización** - Soporte multi-idioma
+- [ ] **Tema oscuro** - Modo oscuro/claro
+- [ ] **Upload de imágenes** - Gestión de archivos
+- [ ] **Notificaciones push** - Alertas en tiempo real
+- [ ] **Tests E2E** - Cobertura completa de tests
+- [ ] **Analytics** - Métricas de uso
