@@ -9,8 +9,7 @@ Aplicación web moderna desarrollada con Angular 17 para gestionar un catálogo 
 - **🔍 Búsqueda y filtros** - Filtrado por categoría y búsqueda de texto
 - **📱 Diseño responsivo** - Optimizado para desktop, tablet y móvil
 - **🏪 Gestión de estado** - NgRx para manejo centralizado del estado
-- **🎨 UI moderna** - Angular Material Design
-- **⚡ Rendimiento** - Lazy loading y optimizaciones
+- **🎨 UI** - Angular Material Design
 
 ## 🛠️ Stack Tecnológico
 

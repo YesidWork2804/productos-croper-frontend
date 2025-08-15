@@ -1,0 +1,118 @@
+<div class="products-container">
+  <div class="page-header">
+    <div class="header-content">
+      <h1 class="page-title">
+        <mat-icon>inventory_2</mat-icon>
+        Catálogo de Productos
+      </h1>
+      <button mat-raised-button color="primary" routerLink="/products/new">
+        <mat-icon>add</mat-icon>
+        Nuevo Producto
+      </button>
+    </div>
+  </div>
+
+  <mat-card class="filters-card">
+    <form [formGroup]="filtersForm" class="filters-form">
+      <mat-form-field appearance="outline" class="search-field">
+        <mat-label>Buscar productos</mat-label>
+        <input
+          matInput
+          formControlName="search"
+          placeholder="Nombre o descripción..."
+        />
+        <mat-icon matSuffix>search</mat-icon>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="category-field">
+        <mat-label>Categoría</mat-label>
+        <mat-select formControlName="categoria">
+          <mat-option value="">Todas las categorías</mat-option>
+          <mat-option
+            *ngFor="let category of categories$ | async"
+            [value]="category"
+          >
+            {{ category }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <button
+        mat-button
+        color="accent"
+        (click)="clearFilters()"
+        type="button"
+      >
+        <mat-icon>clear</mat-icon>
+        Limpiar
+      </button>
+    </form>
+
+    <div class="active-filters" *ngIf="hasActiveFilters()">
+      <span class="filters-label">Filtros activos:</span>
+      <mat-chip-listbox class="filters-chips">
+        <mat-chip-option
+          *ngIf="filtersForm.get('search')?.value"
+          (removed)="removeFilter('search')"
+        >
+          Búsqueda: "{{ filtersForm.get('search')?.value }}"
+          <mat-icon matChipRemove>cancel</mat-icon>
+        </mat-chip-option>
+        <mat-chip-option
+          *ngIf="filtersForm.get('categoria')?.value"
+          (removed)="removeFilter('categoria')"
+        >
+          Categoría: {{ filtersForm.get('categoria')?.value }}
+          <mat-icon matChipRemove>cancel</mat-icon>
+        </mat-chip-option>
+      </mat-chip-listbox>
+    </div>
+  </mat-card>
+
+  <div class="loading-container" *ngIf="loading$ | async">
+    <mat-spinner diameter="50"></mat-spinner>
+    <p>Cargando productos...</p>
+  </div>
+
+  <div class="products-grid" *ngIf="!(loading$ | async)">
+    <div class="grid-container">
+      <app-product-card
+        *ngFor="let product of products$ | async; trackBy: trackByProduct"
+        [product]="product"
+        (edit)="editProduct($event)"
+        (delete)="deleteProduct($event)"
+      >
+      </app-product-card>
+    </div>
+
+    <div class="empty-state" *ngIf="(products$ | async)?.length === 0">
+      <mat-icon class="empty-icon">inventory_2</mat-icon>
+      <h3>No se encontraron productos</h3>
+      <p *ngIf="hasActiveFilters()">
+        No hay productos que coincidan con los filtros aplicados.
+      </p>
+      <p *ngIf="!hasActiveFilters()">
+        Aún no hay productos en el catálogo.
+      </p>
+      <button mat-raised-button color="primary" routerLink="/products/new">
+        <mat-icon>add</mat-icon>
+        Crear primer producto
+      </button>
+    </div>
+  </div>
+
+  <mat-card
+    class="pagination-card"
+    *ngIf="(products$ | async)?.length! > 0"
+  >
+    <mat-paginator
+      [length]="total$ | async"
+      [pageSize]="10"
+      [pageSizeOptions]="[5, 10, 25, 50]"
+      [pageIndex]="currentPage"
+      (page)="onPageChange($event)"
+      showFirstLastButtons
+    >
+    </mat-paginator>
+  </mat-card>
+</div>

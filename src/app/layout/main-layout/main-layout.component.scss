@@ -1,0 +1,41 @@
+.layout-container {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.sidenav-container {
+  flex: 1;
+  overflow: hidden;
+}
+
+.sidenav {
+  width: 280px;
+  border-right: 1px solid #e0e0e0;
+  box-shadow: 2px 0 4px rgba(0, 0, 0, 0.1);
+}
+
+.main-content {
+  background-color: #f5f5f5;
+  overflow-x: hidden;
+}
+
+.content-wrapper {
+  padding: 24px;
+  min-height: calc(100vh - 64px);
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+@media (max-width: 768px) {
+  .content-wrapper {
+    padding: 16px;
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .content-wrapper {
+    padding: 12px;
+  }
+}

@@ -1,0 +1,100 @@
+.register-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 20px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.register-card {
+  width: 100%;
+  max-width: 420px;
+  padding: 24px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
+}
+
+.full-width {
+  width: 100%;
+  margin-bottom: 16px;
+}
+
+.form-actions {
+  margin-top: 24px;
+  margin-bottom: 8px;
+}
+
+mat-card-header {
+  margin-bottom: 20px;
+}
+
+mat-card-title {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 24px;
+  margin-bottom: 8px;
+
+  .mat-icon {
+    font-size: 28px;
+    color: #1976d2;
+  }
+}
+
+mat-card-subtitle {
+  color: #666;
+  font-size: 14px;
+}
+
+mat-card-actions {
+  padding: 16px 0 0 0;
+  border-top: 1px solid #e0e0e0;
+  margin-top: 16px;
+
+  p {
+    margin: 0;
+    font-size: 14px;
+    color: #666;
+  }
+
+  a {
+    text-decoration: none;
+    font-weight: 500;
+  }
+}
+
+.mat-mdc-raised-button {
+  height: 48px;
+  font-weight: 500;
+  border-radius: 6px;
+
+  .mat-spinner {
+    margin-right: 8px;
+  }
+}
+
+.mat-mdc-form-field {
+  .mat-mdc-text-field-wrapper {
+    border-radius: 6px;
+  }
+}
+
+@media (max-width: 480px) {
+  .register-container {
+    padding: 16px;
+  }
+
+  .register-card {
+    padding: 20px;
+    max-width: 100%;
+  }
+
+  mat-card-title {
+    font-size: 20px;
+
+    .mat-icon {
+      font-size: 24px;
+    }
+  }
+}

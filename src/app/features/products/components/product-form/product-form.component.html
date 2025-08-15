@@ -1,0 +1,176 @@
+<div class="form-container">
+  <div class="form-header">
+    <button mat-icon-button (click)="goBack()" class="back-button">
+      <mat-icon>arrow_back</mat-icon>
+    </button>
+    <h1 class="page-title">
+      <mat-icon>{{ isEditMode ? 'edit' : 'add_box' }}</mat-icon>
+      {{ isEditMode ? 'Editar' : 'Nuevo' }} Producto
+    </h1>
+  </div>
+
+  <mat-card class="form-card">
+    <mat-card-content>
+      <form
+        [formGroup]="productForm"
+        (ngSubmit)="onSubmit()"
+        class="product-form"
+      >
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Nombre del producto</mat-label>
+          <input
+            matInput
+            formControlName="nombre"
+            placeholder="Ej: iPhone 15 Pro"
+          />
+          <mat-icon matSuffix>inventory_2</mat-icon>
+          <mat-error
+            *ngIf="productForm.get('nombre')?.hasError('required')"
+          >
+            El nombre es requerido
+          </mat-error>
+          <mat-error
+            *ngIf="productForm.get('nombre')?.hasError('maxlength')"
+          >
+            El nombre no puede exceder 100 caracteres
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Descripción</mat-label>
+          <textarea
+            matInput
+            formControlName="descripcion"
+            placeholder="Describe las características del producto..."
+            rows="4"
+          ></textarea>
+          <mat-icon matSuffix>description</mat-icon>
+          <mat-error
+            *ngIf="productForm.get('descripcion')?.hasError('maxlength')"
+          >
+            La descripción no puede exceder 500 caracteres
+          </mat-error>
+        </mat-form-field>
+
+        <div class="form-row">
+          <mat-form-field appearance="outline" class="flex-field">
+            <mat-label>Precio</mat-label>
+            <input
+              matInput
+              type="number"
+              formControlName="precio"
+              placeholder="0.00"
+              step="0.01"
+              min="0.01"
+            />
+            <span matTextPrefix>$&nbsp;</span>
+            <mat-icon matSuffix>attach_money</mat-icon>
+            <mat-error
+              *ngIf="productForm.get('precio')?.hasError('required')"
+            >
+              El precio es requerido
+            </mat-error>
+            <mat-error *ngIf="productForm.get('precio')?.hasError('min')">
+              El precio debe ser mayor que 0
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="flex-field">
+            <mat-label>Categoría</mat-label>
+            <mat-select formControlName="categoria">
+              <mat-option
+                *ngFor="let category of categories$ | async"
+                [value]="category"
+              >
+                {{ category }}
+              </mat-option>
+              <mat-option value="nueva-categoria">
+                <mat-icon>add</mat-icon>
+                Nueva categoría...
+              </mat-option>
+            </mat-select>
+            <mat-icon matSuffix>category</mat-icon>
+            <mat-error
+              *ngIf="productForm.get('categoria')?.hasError('required')"
+            >
+              La categoría es requerida
+            </mat-error>
+          </mat-form-field>
+        </div>
+
+        <mat-form-field
+          appearance="outline"
+          class="full-width"
+          *ngIf="productForm.get('categoria')?.value === 'nueva-categoria'"
+        >
+          <mat-label>Nueva categoría</mat-label>
+          <input
+            matInput
+            formControlName="nuevaCategoria"
+            placeholder="Nombre de la nueva categoría"
+          />
+          <mat-icon matSuffix>new_label</mat-icon>
+          <mat-error
+            *ngIf="productForm.get('nuevaCategoria')?.hasError('required')"
+          >
+            El nombre de la categoría es requerido
+          </mat-error>
+        </mat-form-field>
+
+        <div class="preview-section" *ngIf="productForm.valid">
+          <h3>Vista previa</h3>
+          <div class="product-preview">
+            <div class="preview-header">
+              <mat-icon class="preview-icon">inventory_2</mat-icon>
+              <div class="preview-info">
+                <h4>{{ productForm.get('nombre')?.value }}</h4>
+                <span class="preview-category">{{
+                  getFinalCategory()
+                }}</span>
+              </div>
+              <span class="preview-price">
+                {{
+                  productForm.get('precio')?.value
+                    | currency : 'USD' : 'symbol' : '1.2-2'
+                }}
+              </span>
+            </div>
+            <p
+              class="preview-description"
+              *ngIf="productForm.get('descripcion')?.value"
+            >
+              {{ productForm.get('descripcion')?.value }}
+            </p>
+          </div>
+        </div>
+
+        <div class="form-actions">
+          <button
+            mat-button
+            type="button"
+            (click)="goBack()"
+            [disabled]="loading$ | async"
+          >
+            Cancelar
+          </button>
+
+          <button
+            mat-raised-button
+            color="primary"
+            type="submit"
+            [disabled]="productForm.invalid || (loading$ | async)"
+          >
+            <mat-spinner
+              diameter="20"
+              *ngIf="loading$ | async"
+            ></mat-spinner>
+            <mat-icon *ngIf="!(loading$ | async)">
+              {{ isEditMode ? 'save' : 'add' }}
+            </mat-icon>
+            <span>{{ isEditMode ? 'Actualizar' : 'Crear' }} Producto</span>
+          </button>
+        </div>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>

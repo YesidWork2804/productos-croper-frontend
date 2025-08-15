@@ -1,0 +1,66 @@
+<mat-card class="product-card" [class.card-hover]="true">
+  <mat-card-header>
+    <div mat-card-avatar class="product-avatar">
+      <mat-icon>inventory_2</mat-icon>
+    </div>
+    <mat-card-title class="product-title">{{
+      product.nombre
+    }}</mat-card-title>
+    <mat-card-subtitle>{{ product.categoria }}</mat-card-subtitle>
+
+    <div class="card-actions">
+      <button mat-icon-button [matMenuTriggerFor]="menu">
+        <mat-icon>more_vert</mat-icon>
+      </button>
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item (click)="onEdit()">
+          <mat-icon>edit</mat-icon>
+          <span>Editar</span>
+        </button>
+        <button mat-menu-item (click)="onDelete()" class="delete-option">
+          <mat-icon>delete</mat-icon>
+          <span>Eliminar</span>
+        </button>
+      </mat-menu>
+    </div>
+  </mat-card-header>
+
+  <mat-card-content class="product-content">
+    <div class="price-section">
+      <span class="price">{{
+        product.precio | currency : 'USD' : 'symbol' : '1.2-2'
+      }}</span>
+    </div>
+
+    <p class="description" *ngIf="product.descripcion">
+      {{ product.descripcion }}
+    </p>
+
+    <div class="product-meta">
+      <mat-chip class="category-chip">
+        <mat-icon matChipIcon>category</mat-icon>
+        {{ product.categoria }}
+      </mat-chip>
+    </div>
+  </mat-card-content>
+
+  <mat-card-actions class="card-footer">
+    <button
+      mat-button
+      color="primary"
+      [routerLink]="['/products', product._id]"
+    >
+      <mat-icon>visibility</mat-icon>
+      Ver detalles
+    </button>
+
+    <button mat-stroked-button color="primary" (click)="onEdit()">
+      <mat-icon>edit</mat-icon>
+      Editar
+    </button>
+  </mat-card-actions>
+
+  <div class="creation-date" *ngIf="product.createdAt">
+    <small>Creado: {{ product.createdAt | date : 'short' }}</small>
+  </div>
+</mat-card>

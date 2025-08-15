@@ -1,0 +1,152 @@
+.login-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 20px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.login-card {
+  width: 100%;
+  max-width: 450px;
+  padding: 28px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+  border-radius: 12px;
+}
+
+.demo-card {
+  width: 100%;
+  max-width: 450px;
+  padding: 20px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+}
+
+.demo-card {
+  width: 100%;
+  max-width: 450px;
+  padding: 20px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+}
+
+.full-width {
+  width: 100%;
+  margin-bottom: 16px;
+}
+
+.form-actions {
+  margin-top: 24px;
+  margin-bottom: 8px;
+}
+
+mat-card-header {
+  margin-bottom: 24px;
+  text-align: center;
+}
+
+mat-card-title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  font-size: 26px;
+  font-weight: 600;
+  margin-bottom: 8px;
+
+  .mat-icon {
+    font-size: 32px;
+    color: #1976d2;
+  }
+}
+
+mat-card-subtitle {
+  color: #666;
+  font-size: 16px;
+  font-weight: 400;
+}
+
+mat-card-actions {
+  padding: 16px 0 0 0;
+  border-top: 1px solid #e0e0e0;
+  margin-top: 16px;
+  text-align: center;
+
+  p {
+    margin: 0;
+    font-size: 14px;
+    color: #666;
+  }
+
+  a {
+    text-decoration: none;
+    font-weight: 500;
+  }
+}
+
+.mat-mdc-raised-button {
+  height: 48px;
+  font-weight: 600;
+  font-size: 16px;
+  border-radius: 8px;
+
+  .mat-spinner {
+    margin-right: 8px;
+  }
+}
+
+.mat-mdc-outlined-button {
+  height: 44px;
+  font-weight: 500;
+  border-radius: 8px;
+  border-width: 1.5px;
+}
+
+.mat-mdc-form-field {
+  .mat-mdc-text-field-wrapper {
+    border-radius: 8px;
+  }
+}
+
+@media (max-width: 768px) {
+  .login-container {
+    padding: 16px;
+    gap: 16px;
+  }
+
+  .login-card {
+    max-width: 100%;
+  }
+
+  .login-card {
+    padding: 24px;
+  }
+}
+
+@media (max-width: 480px) {
+  .login-container {
+    padding: 12px;
+  }
+
+  .login-card {
+    padding: 20px;
+  }
+
+  mat-card-title {
+    font-size: 22px;
+
+    .mat-icon {
+      font-size: 28px;
+    }
+  }
+
+  mat-card-subtitle {
+    font-size: 14px;
+  }
+}

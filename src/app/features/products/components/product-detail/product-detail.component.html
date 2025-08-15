@@ -1,0 +1,100 @@
+<div class="detail-container">
+  <div class="loading-container" *ngIf="loading$ | async">
+    <mat-spinner diameter="50"></mat-spinner>
+    <p>Cargando producto...</p>
+  </div>
+
+  <div *ngIf="product$ | async as product" class="product-detail">
+    <div class="detail-header">
+      <button mat-icon-button (click)="goBack()" class="back-button">
+        <mat-icon>arrow_back</mat-icon>
+      </button>
+      <h1 class="page-title">Detalles del Producto</h1>
+      <div class="header-actions">
+        <button
+          mat-stroked-button
+          color="primary"
+          [routerLink]="['/products', product._id, 'edit']"
+        >
+          <mat-icon>edit</mat-icon>
+          <span>Editar</span>
+        </button>
+        <button
+          mat-stroked-button
+          color="warn"
+          (click)="deleteProduct(product)"
+        >
+          <mat-icon>delete</mat-icon>
+          <span>Eliminar</span>
+        </button>
+      </div>
+    </div>
+
+    <mat-card class="product-card">
+      <mat-card-header class="product-header">
+        <div mat-card-avatar class="product-avatar">
+          <mat-icon>inventory_2</mat-icon>
+        </div>
+        <mat-card-title class="product-title">{{
+          product.nombre
+        }}</mat-card-title>
+        <mat-card-subtitle>{{ product.categoria }}</mat-card-subtitle>
+      </mat-card-header>
+
+      <mat-card-content class="product-content">
+        <div class="price-section">
+          <span class="price-label">Precio:</span>
+          <span class="price">{{
+            product.precio | currency : 'USD' : 'symbol' : '1.2-2'
+          }}</span>
+        </div>
+
+        <div class="description-section" *ngIf="product.descripcion">
+          <h3>Descripción</h3>
+          <p>{{ product.descripcion }}</p>
+        </div>
+
+        <div class="category-section">
+          <h3>Categoría</h3>
+          <mat-chip class="category-chip">
+            <mat-icon matChipIcon>category</mat-icon>
+            <span>{{ product.categoria }}</span>
+          </mat-chip>
+        </div>
+
+        <div class="metadata-section">
+          <h3>Información adicional</h3>
+          <div class="metadata-grid">
+            <div class="metadata-item">
+              <strong>ID:</strong>
+              <span>{{ product._id }}</span>
+            </div>
+            <div class="metadata-item" *ngIf="product.createdAt">
+              <strong>Fecha de creación:</strong>
+              <span>{{ product.createdAt | date : 'medium' }}</span>
+            </div>
+            <div class="metadata-item" *ngIf="product.updatedAt">
+              <strong>Última actualización:</strong>
+              <span>{{ product.updatedAt | date : 'medium' }}</span>
+            </div>
+          </div>
+        </div>
+      </mat-card-content>
+
+      <mat-card-actions class="card-actions">
+        <button
+          mat-raised-button
+          color="primary"
+          [routerLink]="['/products', product._id, 'edit']"
+        >
+          <mat-icon>edit</mat-icon>
+          <span>Editar Producto</span>
+        </button>
+        <button mat-button routerLink="/products">
+          <mat-icon>list</mat-icon>
+          <span>Volver al catálogo</span>
+        </button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+</div>

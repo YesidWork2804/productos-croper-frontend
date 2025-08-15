@@ -1,0 +1,17 @@
+<mat-card class="error-card" *ngIf="error">
+  <mat-card-content class="error-content">
+    <div class="error-header">
+      <mat-icon class="error-icon">error_outline</mat-icon>
+      <h3>{{ title || 'Error' }}</h3>
+    </div>
+
+    <p class="error-message">{{ error }}</p>
+
+    <div class="error-actions" *ngIf="showRetry">
+      <button mat-raised-button color="primary" (click)="onRetry()">
+        <mat-icon>refresh</mat-icon>
+        Reintentar
+      </button>
+    </div>
+  </mat-card-content>
+</mat-card>
