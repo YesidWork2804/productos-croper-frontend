@@ -145,38 +145,6 @@ El frontend maneja automáticamente:
 2. Confirma en el diálogo
 3. Eliminación inmediata
 
-## 🔨 Scripts Disponibles
-
-```bash
-# Desarrollo
-npm start              # Servidor de desarrollo
-npm run build          # Build de producción
-npm run build:dev      # Build de desarrollo
-npm run test           # Tests unitarios
-npm run lint           # Linting del código
-npm run e2e            # Tests end-to-end
-
-# Utilidades
-npm run analyze        # Análisis del bundle
-npm run serve:prod     # Servir build de producción
-```
-
-## 📱 Características Responsivas
-
-### Desktop (1200px+)
-- Sidebar fijo visible
-- Grid de 3-4 productos por fila
-- Navegación completa en header
-
-### Tablet (768px - 1199px)
-- Sidebar colapsable
-- Grid de 2-3 productos por fila
-- Navegación optimizada
-
-### Mobile (< 768px)
-- Sidebar tipo drawer
-- Grid de 1 producto por fila
-- Navegación touch-friendly
 
 ## 🔐 Seguridad Implementada
 
@@ -226,40 +194,6 @@ server {
         proxy_set_header X-Real-IP $remote_addr;
     }
 }
-```
-
-## 🐛 Troubleshooting
-
-### Problemas Comunes
-
-**1. Error de conexión con el backend:**
-```bash
-# Verificar que el backend esté ejecutándose
-curl http://localhost:3000/api/docs
-
-# Verificar configuración en environment.ts
-```
-
-**2. Problemas de CORS:**
-```bash
-# Verificar configuración de CORS en el backend
-# O usar proxy de Angular para desarrollo
-```
-
-**3. Token JWT expirado:**
-```bash
-# El frontend redirige automáticamente al login
-# Verificar tiempo de expiración en el backend
-```
-
-**4. Problemas de build:**
-```bash
-# Limpiar cache
-rm -rf node_modules package-lock.json
-npm install
-
-# Verificar versión de Node.js
-node --version  # Debe ser 18+
 ```
 
 ## 📈 Próximas Mejoras
