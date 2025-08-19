@@ -48,7 +48,6 @@ export class AuthService {
     const token = this.getStoredToken();
     if (!token) return false;
 
-    // Verificar si el token no ha expirado
     try {
       const payload = JSON.parse(atob(token.split('.')[1]));
       return payload.exp * 1000 > Date.now();

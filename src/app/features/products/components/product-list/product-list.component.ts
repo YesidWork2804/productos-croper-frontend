@@ -128,7 +128,11 @@ export class ProductListComponent implements OnInit, OnDestroy {
   clearFilters(): void {
     this.filtersForm.reset();
     this.currentPage = 0;
-    this.updateUrlParams({});
+    this.router.navigate([], {
+      relativeTo: this.route,
+      queryParams: {},
+      replaceUrl: true,
+    });
   }
 
   removeFilter(filterName: string): void {
@@ -139,22 +143,42 @@ export class ProductListComponent implements OnInit, OnDestroy {
     this.currentPage = 0;
     const formValue = this.filtersForm.value;
 
-    const params: any = {};
-    if (formValue.search) params.search = formValue.search;
-    if (formValue.categoria) params.categoria = formValue.categoria;
+    const params: any = {
+      page: '1',
+      limit: '10',
+    };
 
-    this.updateUrlParams(params);
+    if (formValue.search && formValue.search.trim()) {
+      params.search = formValue.search.trim();
+    }
+    if (formValue.categoria && formValue.categoria.trim()) {
+      params.categoria = formValue.categoria.trim();
+    }
+
+    this.router.navigate([], {
+      relativeTo: this.route,
+      queryParams: params,
+      replaceUrl: true,
+    });
   }
 
   onPageChange(event: PageEvent): void {
     this.currentPage = event.pageIndex;
     const currentParams = this.route.snapshot.queryParams;
 
-    this.updateUrlParams({
-      ...currentParams,
+    const params: any = {
       page: (event.pageIndex + 1).toString(),
       limit: event.pageSize.toString(),
-    });
+    };
+
+    if (currentParams['search'] && currentParams['search'].trim()) {
+      params.search = currentParams['search'].trim();
+    }
+    if (currentParams['categoria'] && currentParams['categoria'].trim()) {
+      params.categoria = currentParams['categoria'].trim();
+    }
+
+    this.updateUrlParams(params);
   }
 
   editProduct(product: Product): void {
@@ -183,7 +207,7 @@ export class ProductListComponent implements OnInit, OnDestroy {
     this.router.navigate([], {
       relativeTo: this.route,
       queryParams: params,
-      queryParamsHandling: 'merge',
+      replaceUrl: true,
     });
   }
 }
